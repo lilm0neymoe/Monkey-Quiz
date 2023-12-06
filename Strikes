@@ -1,0 +1,55 @@
+from kivy.app import App
+from kivy.uix.label import Label
+from kivy.uix.button import Button
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.textinput import TextInput
+
+
+class QuizQ(App):
+
+    def createQuestionWidget(self, question, a, b, c, d, img):
+        boxlayout = BoxLayout()
+        label = Label(text=question)
+        
+        layout = BoxLayout(orientation="vertical")
+        btnlayout = BoxLayout(orientation="horizontal")
+
+        Questionbox = Label(question)
+        layout.add_widget(Questionbox)
+        
+
+
+        btnA = Button(text=a)
+        btnlayout.add_widget(btnA)
+
+        btnB = Button(text=b)
+        btnlayout.add_widget(btnB)
+
+        btnlayout2 = BoxLayout(orientation="horizontal")
+
+
+        btnC = Button(text=c)
+        btnlayout2.add_widget(btnC)
+            
+        btnD = Button(text=d)
+        btnlayout2.add_widget(btnD)
+
+        boxlayout.add_widget(btnlayout)
+        boxlayout.add_widget(btnlayout2)
+
+
+        return boxlayout
+    
+
+    def build(self):
+        questionWidget=self.createQuestionWidget("favourite food?", "Banana", "Apple", "Nuts", "mango", "ape.png")
+
+
+
+        return questionWidget
+
+    
+    
+QuizQ().run()
+    
+
