@@ -8,48 +8,67 @@ from kivy.uix.textinput import TextInput
 class QuizQ(App):
 
     def createQuestionWidget(self, question, a, b, c, d, img):
-        boxlayout = BoxLayout()
+        self.boxlayout = BoxLayout(orientation="vertical")
         label = Label(text=question)
         
-        layout = BoxLayout(orientation="vertical")
-        btnlayout = BoxLayout(orientation="horizontal")
+        self.btnlayout = BoxLayout(orientation="horizontal")
+        self.btnlayout2 = BoxLayout(orientation="horizontal")      
+        self.Questionbox = BoxLayout(orientation="horizontal")
 
-        Questionbox = Label(question)
-        layout.add_widget(Questionbox)
-        
+        Question = Label(text=question, font_size="50")
+        self.Questionbox.add_widget(Question)
 
-
-        btnA = Button(text=a)
-        btnlayout.add_widget(btnA)
-
-        btnB = Button(text=b)
-        btnlayout.add_widget(btnB)
-
-        btnlayout2 = BoxLayout(orientation="horizontal")
+        btnA = Button(text=a, font_size="25", background_color="blue")
+        self.btnlayout.add_widget(btnA)
 
 
-        btnC = Button(text=c)
-        btnlayout2.add_widget(btnC)
+        btnB = Button(text=b, font_size="25",background_color="red")
+        self.btnlayout.add_widget(btnB)
+
+        btnC = Button(text=c, font_size="25",background_color= "lime")
+        self.btnlayout2.add_widget(btnC)
             
-        btnD = Button(text=d)
-        btnlayout2.add_widget(btnD)
+        btnD = Button(text=d, font_size="25",background_color="gold")
+        self.btnlayout2.add_widget(btnD)
 
-        boxlayout.add_widget(btnlayout)
-        boxlayout.add_widget(btnlayout2)
+        
+        self.boxlayout.add_widget(self.Questionbox)
+        self.boxlayout.add_widget(self.btnlayout)
+        self.boxlayout.add_widget(self.btnlayout2)
 
 
-        return boxlayout
+
+        return self.boxlayout
     
 
-    def build(self):
-        questionWidget=self.createQuestionWidget("favourite food?", "Banana", "Apple", "Nuts", "mango", "ape.png")
+
+    def build (self):
+
+        self.startboxlayout = BoxLayout(orientation = "vertical")
+        self.startbtn = Button(text="START", font_size= 70, background_color="lime")
+        self.startboxlayout.add_widget(self.startbtn)
+        self.startbtn.bind(on_press=self.startfunc)
+
+        return self.startboxlayout
 
 
+    def startfunc(self, btn):
+        questionWidget = self.createQuestionWidget("Favourite food?", "Banana", "Apple", "Nuts", "mango", "ape.png")
+        self.startboxlayout.remove_widget(self.startbtn)
+        self.startboxlayout.add_widget(questionWidget)
 
-        return questionWidget
+    def correctfunc(self,btn):
+        self.correctboxlayout.add_widget(self.correctbtn)
 
+        self.correctboxlayout = BoxLayout (orientation = "vertical")
+        self.correctbtn = Button(text="CORRECT", font_size= 70, background_color="lime")
+        self.correctboxlayout.add_widget(self.correctbtn)
+        self.correctbtn.bind(on_press=self.correctfunc)
+
+        self.correctboxlayout.remove_widget(self.boxlayout)
     
-    
+        
+     
 QuizQ().run()
     
 
